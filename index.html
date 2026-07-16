@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Aliyo!</title>
+  
+  <!-- Google Fonts for cute handwritten vibes -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- CSS RESET & BASE STYLES --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #e3edf7; /* Aesthetic pastel blue */
+      background-image: radial-gradient(#ffffff 15%, transparent 15%), radial-gradient(#ffffff 15%, transparent 15%);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      font-family: 'Quicksand', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #4a6984;
+    }
+
+    /* --- MUSIC CONTROLLER --- */
+    .music-player {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 8px 15px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* --- CONTAINER --- */
+    .container {
+      width: 100%;
+      max-width: 450px;
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* --- SCREEN 1: THE CAKE INTERACTION --- */
+    .interaction-screen {
+      width: 100%;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px 20px;
+      border-radius: 30px;
+      box-shadow: 0 15px 35px rgba(162, 200, 204, 0.3);
+      border: 3px solid #bce0fd;
+      transition: all 0.8s ease-in-out;
+      position: relative;
+    }
+
+    .surprise-title {
+      font-family: 'Fredoka One', cursive;
+      color: #5b8dbd;
+      font-size: 26px;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Cat & Cake Display */
+    .cat-cake-wrapper {
+      position: relative;
+      margin: 20px auto;
+      width: 260px;
+      height: 320px;
+    }
+
+    /* Base cat image (1000332090.jpg matches the birthday hat cat licking lips) */
+    .main-cat {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+
+    /* Balloon Sticker absolute positioning overlay */
+    .balloon-sticker {
+      position: absolute;
+      top: -30px;
+      right: -20px;
+      width: 100px;
+      animation: float 4s ease-in-out infinite alternate;
+    }
+
+    /* Interactive Candle Overlay */
+    .candle-container {
+      position: absolute;
+      bottom: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .flame {
+      width: 15px;
+      height: 25px;
+      background: #ffb74d;
+      border-radius: 50% 50% 20% 20%;
+      box-shadow: 0 0 10px #ffb74d;
+      animation: flicker 0.6s infinite alternate;
+      margin: 0 auto;
+      transition: opacity 0.5s ease;
+    }
+
+    .flame.blown-out {
+      opacity: 0 !important;
+      animation: none;
+    }
+
+    .candle-stick {
+      width: 6px;
+      height: 20px;
+      background: #b3e5fc;
+      border-radius: 3px;
+      margin: 0 auto;
+    }
+
+    /* Interactive Knife */
+    .knife {
+      position: absolute;
+      bottom: 120px;
+      right: 20px;
+      width: 45px;
+      cursor: pointer;
+      opacity: 0;
+      transform: rotate(-45deg);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 15;
+    }
+
+    .knife.show {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    .knife.cutting {
+      animation: cutAction 0.6s ease-in-out forwards;
+    }
+
+    /* Cake visual cutting effect */
+    .cut-line {
+      position: absolute;
+      bottom: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 0px;
+      background: rgba(255,255,255,0.8);
+      transition: height 0.5s ease;
+      z-index: 11;
+    }
+
+    .cut-line.sliced {
+      height: 35px;
+    }
+
+    .instruction-text {
+      font-size: 16px;
+      font-weight: bold;
+      color: #7ba2c7;
+      margin-top: 15px;
+      min-height: 24px;
+    }
+
+    /* Primary Letter Trigger Button */
+    .btn-letters {
+      margin-top: 25px;
+      padding: 14px 28px;
+      background: #7ba2c7;
+      color: white;
+      font-family: 'Fredoka One', cursive;
+      font-size: 18px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(123, 162, 199, 0.4);
+      transition: all 0.3s ease;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
+
+    .btn-letters.reveal {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .btn-letters:hover {
+      background: #5f89b0;
+      transform: scale(1.05);
+    }
+
+    /* --- SCREEN 2: 3D FLIPPING BOOK --- */
+    .book-screen {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.8s ease-in-out;
+    }
+
+    .book-container {
+      width: 340px;
+      height: 460px;
+      position: relative;
+      perspective: 1500px;
+    }
+
+    /* Pages Styling */
+    .book-page {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-style: preserve-3d;
+      transform-origin: left center;
+      transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+      z-index: 5;
+    }
+
+    /* Front and Back face of each flipping sheet */
+    .page-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border: 6px solid #fff;
+    }
+
+    /* Front side of sheet */
+    .page-front {
+      background: #fdfdfd;
+      z-index: 2;
+    }
+
+    /* Back side of sheet (hidden when face up) */
+    .page-back {
+      background: #fbfbfb;
+      transform: rotateY(180deg);
+      z-index: 1;
+    }
+
+    /* Flipped class triggers 3D rotate */
+    .book-page.flipped {
+      transform: rotateY(-180deg);
+      z-index: 10;
+    }
+
+    /* Paper/Scrapbook Page Theme details */
+    .theme-blue-gingham {
+      background-color: #f0f6fc;
+      background-image: linear-gradient(rgba(188,224,253,0.3) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(188,224,253,0.3) 2px, transparent 2px);
+      background-size: 25px 25px;
+    }
+
+    .theme-vintage-lace {
+      background-color: #f7f9fc;
+      background-image: radial-gradient(#d0e3f7 10%, transparent 10%);
+      background-size: 20px 20px;
+    }
+
+    /* Cute scrapbooked stickers */
+    .sticker {
+      position: absolute;
+      pointer-events: none;
+      filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.15));
+    }
+
+    .sticker-zootopia {
+      width: 110px;
+      bottom: 15px;
+      right: 15px;
+    }
+
+    .sticker-cat {
+      width: 90px;
+      top: 15px;
+      right: 15px;
+    }
+
+    .sticker-tape {
+      width: 70px;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      opacity: 0.8;
+    }
+
+    /* Handwritten Letter Styling */
+    .letter-title {
+      font-family: 'Caveat', cursive;
+      font-size: 32px;
+      color: #3b5f8a;
+      text-align: center;
+      margin-top: 10px;
+      border-bottom: 2px dashed #bce0fd;
+      padding-bottom: 5px;
+    }
+
+    .letter-body {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #506a85;
+      text-align: left;
+      flex-grow: 1;
+      margin-top: 15px;
+      overflow-y: auto;
+    }
+
+    .letter-footer {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      text-align: right;
+      color: #e57373;
+    }
+
+    /* Book Navigation Buttons */
+    .book-controls {
+      display: flex;
+      gap: 30px;
+      margin-top: 25px;
+    }
+
+    .btn-nav {
+      background: white;
+      border: 2px solid #bce0fd;
+      color: #5b8dbd;
+      font-family: 'Fredoka One', cursive;
+      font-size: 15px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      background: #bce0fd;
+      color: white;
+    }
+
+    /* --- ANIMATIONS --- */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-1deg); }
+      100% { transform: scale(1.1) rotate(1deg); }
+    }
+
+    @keyframes cutAction {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-20px, -20px) rotate(-30deg); }
+      100% { transform: translate(-40px, 30px) rotate(-10deg); }
+    }
+
+    .hidden {
+      display: none !important;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND MUSIC (Replace with any URL to play audio) -->
+  <div class="music-player" onclick="togglePlay()">
+    <span id="music-icon">🎵</span> <span id="music-text">Play Song</span>
+    <audio id="bg-music" loop>
+      <!-- You can put a link to an .mp3 file here! -->
+      <source src="your-song-link.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div class="container">
+
+    <!-- ================= SCREEN 1: CAKE BLOW & CUT ================= -->
+    <div id="screen-cake" class="interaction-screen">
+      <h1 class="surprise-title">I got a surprise for my Aliyo... ✨</h1>
+      
+      <div class="cat-cake-wrapper">
+        <!-- Balloons Sticker -->
+        <img src="1000332092.jpg" alt="Balloons Sticker" class="sticker balloon-sticker">
+        
+        <!-- Cat holding cake -->
+        <img src="1000332090.jpg" alt="Cat Cake Base" class="main-cat">
+        
+        <!-- Animated Flame -->
+        <div class="candle-container" id="candle" onclick="blowCandle()">
+          <div class="flame" id="flame-layer"></div>
+          <div class="candle-stick"></div>
+        </div>
+
+        <!-- Knife Sticker -->
+        <img src="1000332097.jpg" alt="Knife" class="knife" id="knife-element" onclick="cutCake()">
+
+        <!-- Cake Split Line Visual -->
+        <div class="cut-line" id="cake-cut"></div>
+      </div>
+
+      <p class="instruction-text" id="instructions">🎂 Tap the candle to blow it out!</p>
+      
+      <button class="btn-letters" id="btn-letters" onclick="goToLetters()">I've wrote letters 💌</button>
+    </div>
+
+
+    <!-- ================= SCREEN 2: 3D SCRAPBOOK PAGES ================= -->
+    <div id="screen-letters" class="book-screen hidden">
+      
+      <div class="book-container">
+
+        <!-- PAGE 1 (Cover / Intro) -->
+        <div class="book-page" id="page-1">
+          <div class="page-face page-front theme-blue-gingham">
+            <!-- Decorative Tape sticker -->
+            <img src="1000332095.jpg" class="sticker sticker-tape" style="width:120px;">
+            <h2 class="letter-title">Hey Bestie!</h2>
+            <div class="letter-body">
+              <p>Welcome to your virtual birthday scrapbook. Since you are my absolute favorite male bestie, I wanted to make something unique just for you.</p>
+              <br>
+              <p>Flip through these pages to see what I have put together... 💙</p>
+            </div>
+            <!-- Zootopia Sticker -->
+            <img src="1000332094.jpg" class="sticker sticker-zootopia" alt="Judy and Nick sticker">
+            <div class="letter-footer">- swipe next</div>
+          </div>
+          <div class="page-face page-back theme-vintage-lace">
+            <!-- Page 2 content -->
+            <h2 class="letter-title">Page 2: Memories</h2>
+            <div class="letter-body">
+              <p>Thank you for always being there to laugh at my jokes, stay up late, and listen to me rant. You're the Nick Wilde to my Judy Hopps! 🦊🐰</p>
+              <br>
+              <p>I value our friendship so much. I'm really glad we became as close as we did!</p>
+            </div>
+            <img src="1000332093.jpg" class="sticker" style="width:110px; bottom:15px; left:15px; border-radius:5px;" alt="Blue aesthetic">
+            <div class="letter-footer">- swipe next</div>
+          </div>
+        </div>
+
+        <!-- PAGE 2 (Mid-section) -->
+        <div class="book-page" id="page-2">
+          <div class="page-face page-front theme-vintage-lace">
+            <h2 class="letter-title">Page 3: Inside Jokes</h2>
+            <div class="letter-body">
+              <p>No matter how busy things get, I know I can always count on you to have my back.</p>
+              <br>
+              <p>Hope your birthday brings you as much happiness as you bring to everyone around you. Here's to making even more ridiculous memories together!</p>
+            </div>
+            <img src="1000332092.jpg" class="sticker sticker-cat" alt="Ginger cat">
+            <div class="letter-footer">- swipe next</div>
+          </div>
+          <div class="page-face page-back theme-blue-gingham">
+            <!-- Page 4 contents (Final Birthday Wish) -->
+            <h2 class="letter-title" style="color: #2b4c7e;">Happy Birthday Aliyo! 👑</h2>
+            <div class="letter-body" style="text-align: center;">
+              <p style="font-size: 18px; font-weight: bold;">To my awesome best friend,</p>
+              <br>
+              <p>May this year bring you closer to all your dreams. Keep shining, smiling, and being the legend that you are.</p>
+              <br>
+              <p style="font-size: 20px; font-family: 'Fredoka One'; color: #4a6984;">Cheers to another amazing year! 🎉</p>
+            </div>
+            <img src="1000332090.jpg" class="sticker" style="width: 100px; bottom: 10px; left: 50%; transform: translateX(-50%);" alt="Cat holding cake">
+          </div>
+        </div>
+
+      </div> <!-- End book-container -->
+
+      <!-- Navigation for book -->
+      <div class="book-controls">
+        <button class="btn-nav" onclick="prevPage()">◀ Back</button>
+        <button class="btn-nav" onclick="nextPage()">Next ▶</button>
+      </div>
+
+    </div> <!-- End screen-letters -->
+
+  </div> <!-- End container -->
+
+
+  <script>
+    // --- AUDIO SYSTEM ---
+    const bgMusic = document.getElementById('bg-music');
+    const musicIcon = document.getElementById('music-icon');
+    const musicText = document.getElementById('music-text');
+    
+    function togglePlay() {
+      if (bgMusic.paused) {
+        bgMusic.play().catch(e => console.log("Music play blocked. It will play after you interact with the page!"));
+        musicIcon.innerText = "⏸️";
+        musicText.innerText = "Playing";
+      } else {
+        bgMusic.pause();
+        musicIcon.innerText = "🎵";
+        musicText.innerText = "Play Song";
+      }
+    }
+
+    // --- INTERACTION LOGIC ---
+    let candleBlown = false;
+    let cakeCut = false;
+
+    function blowCandle() {
+      if (candleBlown) return;
+      
+      // Blow out flame
+      document.getElementById('flame-layer').classList.add('blown-out');
+      document.getElementById('instructions').innerText = "🔪 Now tap the knife to cut the cake!";
+      
+      // Autoplay music on interaction if possible
+      bgMusic.play().catch(() => {}); 
+      musicIcon.innerText = "⏸️";
+      musicText.innerText = "Playing";
+
+      // Show knife after brief delay
+      setTimeout(() => {
+        document.getElementById('knife-element').classList.add('show');
+        candleBlown = true;
+      }, 800);
+    }
+
+    function cutCake() {
+      if (!candleBlown || cakeCut) return;
+
+      const knife = document.getElementById('knife-element');
+      knife.classList.add('cutting');
+
+      // Slice visual line
+      setTimeout(() => {
+        document.getElementById('cake-cut').classList.add('sliced');
+        document.getElementById('instructions').innerText = "Yay! Cake cut successfully! ✨";
+        
+        // Reveal Letter button
+        document.getElementById('btn-letters').classList.add('reveal');
+        cakeCut = true;
+      }, 600);
+    }
+
+    function goToLetters() {
+      document.getElementById('screen-cake').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('screen-cake').style.display = 'none';
+        document.getElementById('screen-letters').classList.remove('hidden');
+      }, 500);
+    }
+
+    // --- 3D BOOK FLIPPING LOGIC ---
+    let currentPage = 0;
+    const pages = [
+      document.getElementById('page-1'),
+      document.getElementById('page-2')
+    ];
+
+    function nextPage() {
+      if (currentPage < pages.length) {
+        pages[currentPage].classList.add('flipped');
+        currentPage++;
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        pages[currentPage].classList.remove('flipped');
+      }
+    }
+  </script>
+</body>
+</html>
