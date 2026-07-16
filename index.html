@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Aliyo!</title>
   
-  <!-- Google Fonts for cute handwritten vibes -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
   <style>
@@ -86,14 +85,14 @@
       height: 320px;
     }
 
-    /* Base cat image (1000332090.jpg matches the birthday hat cat licking lips) */
+    /* Base cat image (Birthday Board Collage) */
     .main-cat {
       width: 100%;
       height: auto;
       border-radius: 20px;
     }
 
-    /* Balloon Sticker absolute positioning overlay */
+    /* Balloon Sticker absolute positioning overlay (Orange cat with cake/blue balloons) */
     .balloon-sticker {
       position: absolute;
       top: -30px;
@@ -136,7 +135,7 @@
       margin: 0 auto;
     }
 
-    /* Interactive Knife */
+    /* Interactive Knife - hidden inside the collage, pops up on command */
     .knife {
       position: absolute;
       bottom: 120px;
@@ -313,8 +312,8 @@
     }
 
     .sticker-tape {
-      width: 70px;
-      top: -5px;
+      width: 130px;
+      top: -10px;
       left: 50%;
       transform: translateX(-50%) rotate(-3deg);
       opacity: 0.8;
@@ -400,38 +399,30 @@
 </head>
 <body>
 
-  <!-- BACKGROUND MUSIC (Replace with any URL to play audio) -->
   <div class="music-player" onclick="togglePlay()">
     <span id="music-icon">🎵</span> <span id="music-text">Play Song</span>
     <audio id="bg-music" loop>
-      <!-- You can put a link to an .mp3 file here! -->
       <source src="your-song-link.mp3" type="audio/mpeg">
     </audio>
   </div>
 
   <div class="container">
 
-    <!-- ================= SCREEN 1: CAKE BLOW & CUT ================= -->
     <div id="screen-cake" class="interaction-screen">
       <h1 class="surprise-title">I got a surprise for my Aliyo... ✨</h1>
       
       <div class="cat-cake-wrapper">
-        <!-- Balloons Sticker -->
-        <img src="1000332092.jpg" alt="Balloons Sticker" class="sticker balloon-sticker">
+        <img src="ef29a24bcb6c2c8188c0d8a913d11440.jpg" alt="Balloons Sticker" class="sticker balloon-sticker">
         
-        <!-- Cat holding cake -->
-        <img src="1000332090.jpg" alt="Cat Cake Base" class="main-cat">
+        <img src="881d75ad8aaf43544418e3ecfd8ef3df.jpg" alt="Cat Cake Base" class="main-cat">
         
-        <!-- Animated Flame -->
         <div class="candle-container" id="candle" onclick="blowCandle()">
           <div class="flame" id="flame-layer"></div>
           <div class="candle-stick"></div>
         </div>
 
-        <!-- Knife Sticker -->
-        <img src="1000332097.jpg" alt="Knife" class="knife" id="knife-element" onclick="cutCake()">
+        <img src="21a8d607c291114fb8046ef7dfba4a80.jpg" alt="Knife" class="knife" id="knife-element" onclick="cutCake()">
 
-        <!-- Cake Split Line Visual -->
         <div class="cut-line" id="cake-cut"></div>
       </div>
 
@@ -441,40 +432,34 @@
     </div>
 
 
-    <!-- ================= SCREEN 2: 3D SCRAPBOOK PAGES ================= -->
     <div id="screen-letters" class="book-screen hidden">
       
       <div class="book-container">
 
-        <!-- PAGE 1 (Cover / Intro) -->
         <div class="book-page" id="page-1">
           <div class="page-face page-front theme-blue-gingham">
-            <!-- Decorative Tape sticker -->
-            <img src="1000332095.jpg" class="sticker sticker-tape" style="width:120px;">
+            <img src="857b53192b66307b01085017c0d34a41.jpg" class="sticker sticker-tape">
             <h2 class="letter-title">Hey Bestie!</h2>
             <div class="letter-body">
               <p>Welcome to your virtual birthday scrapbook. Since you are my absolute favorite male bestie, I wanted to make something unique just for you.</p>
               <br>
               <p>Flip through these pages to see what I have put together... 💙</p>
             </div>
-            <!-- Zootopia Sticker -->
-            <img src="1000332094.jpg" class="sticker sticker-zootopia" alt="Judy and Nick sticker">
-            <div class="letter-footer">- swipe next</div>
+            <img src="881d75ad8aaf43544418e3ecfd8ef3df.jpg" class="sticker sticker-zootopia" alt="Judy and Nick sticker" style="border-radius: 5px;">
+            <div class="letter-footer">- flip next</div>
           </div>
           <div class="page-face page-back theme-vintage-lace">
-            <!-- Page 2 content -->
             <h2 class="letter-title">Page 2: Memories</h2>
             <div class="letter-body">
               <p>Thank you for always being there to laugh at my jokes, stay up late, and listen to me rant. You're the Nick Wilde to my Judy Hopps! 🦊🐰</p>
               <br>
               <p>I value our friendship so much. I'm really glad we became as close as we did!</p>
             </div>
-            <img src="1000332093.jpg" class="sticker" style="width:110px; bottom:15px; left:15px; border-radius:5px;" alt="Blue aesthetic">
-            <div class="letter-footer">- swipe next</div>
+            <img src="7e21c3eef1fde225038592c4653f86e8.jpg" class="sticker" style="width:110px; bottom:15px; left:15px; border-radius:5px;" alt="Blue aesthetic">
+            <div class="letter-footer">- flip next</div>
           </div>
         </div>
 
-        <!-- PAGE 2 (Mid-section) -->
         <div class="book-page" id="page-2">
           <div class="page-face page-front theme-vintage-lace">
             <h2 class="letter-title">Page 3: Inside Jokes</h2>
@@ -483,37 +468,28 @@
               <br>
               <p>Hope your birthday brings you as much happiness as you bring to everyone around you. Here's to making even more ridiculous memories together!</p>
             </div>
-            <img src="1000332092.jpg" class="sticker sticker-cat" alt="Ginger cat">
-            <div class="letter-footer">- swipe next</div>
+            <img src="99179d229593cad23f87883842a9bca5.jpg" class="sticker sticker-cat" alt="Ginger cat" style="border-radius: 5px;">
+            <div class="letter-footer">- flip next</div>
           </div>
           <div class="page-face page-back theme-blue-gingham">
-            <!-- Page 4 contents (Final Birthday Wish) -->
             <h2 class="letter-title" style="color: #2b4c7e;">Happy Birthday Aliyo! 👑</h2>
-            <div class="letter-body" style="text-align: center;">
+            <div class="letter-body" style="text-align: center; position: relative; z-index: 2;">
               <p style="font-size: 18px; font-weight: bold;">To my awesome best friend,</p>
               <br>
               <p>May this year bring you closer to all your dreams. Keep shining, smiling, and being the legend that you are.</p>
               <br>
               <p style="font-size: 20px; font-family: 'Fredoka One'; color: #4a6984;">Cheers to another amazing year! 🎉</p>
             </div>
-            <img src="1000332090.jpg" class="sticker" style="width: 100px; bottom: 10px; left: 50%; transform: translateX(-50%);" alt="Cat holding cake">
+            <img src="c8ce65c687796d37c4a9bbef1c36ef44.jpg" class="sticker" style="width: 130px; bottom: 10px; left: 50%; transform: translateX(-50%); border-radius: 5px; opacity: 0.8;" alt="Lace frame">
           </div>
         </div>
 
-      </div> <!-- End book-container -->
-
-      <!-- Navigation for book -->
-      <div class="book-controls">
+      </div> <div class="book-controls">
         <button class="btn-nav" onclick="prevPage()">◀ Back</button>
         <button class="btn-nav" onclick="nextPage()">Next ▶</button>
       </div>
 
-    </div> <!-- End screen-letters -->
-
-  </div> <!-- End container -->
-
-
-  <script>
+    </div> </div> <script>
     // --- AUDIO SYSTEM ---
     const bgMusic = document.getElementById('bg-music');
     const musicIcon = document.getElementById('music-icon');
